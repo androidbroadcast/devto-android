@@ -1,0 +1,16 @@
+[versions]
+dagger = "2.38.1"
+compose = "1.0.1"
+
+[libraries]
+dagger-runtime = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+
+androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+androidx-compose-ui-toolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+
+[bundles]
+androidx-compose = ["androidx-compose-ui", "androidx-compose-material", "androidx-compose-ui-toolingPreview"]
