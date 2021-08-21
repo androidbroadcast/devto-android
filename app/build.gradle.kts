@@ -52,24 +52,22 @@ android {
 }
 
 dependencies {
-    val composeVersion = "1.0.1"
     implementation(project(":core"))
 
-    implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("com.google.android.material:material:1.4.0")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.google.material)
 
     implementation(libs.bundles.androidx.compose)
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.activity:activity-compose:1.3.1")
+    implementation(libs.bundles.androidx.lifecycle)
 
     implementation(libs.dagger.runtime)
     kapt(libs.dagger.compiler)
 
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(libs.junit4)
 
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.bundles.androidx.test.espresso)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
