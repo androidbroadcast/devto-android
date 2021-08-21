@@ -1,15 +1,14 @@
 package dev.androidbroadcast.devto.api
 
 import androidx.annotation.IntRange
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dev.androidbroadcast.devto.api.entity.Article
 import dev.androidbroadcast.devto.api.entity.State
 import dev.androidbroadcast.devto.api.result.Result
-import dev.androidbroadcast.devto.api.result.Video
+import dev.androidbroadcast.devto.api.entity.Video
 import dev.androidbroadcast.devto.api.result.retrofit.ResultAdapterFactory
-import dev.androidbroadcast.devto.api.result.retrofit.ResultCall
-import okhttp3.Interceptor
+import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.create
 import retrofit2.http.GET
@@ -113,15 +112,21 @@ private annotation class Page
 @IntRange(from = 1)
 private annotation class ArticleId
 
+
 @Suppress("unused")
-fun ArticlesService(apiKey: String): ArticlesService {
-    val okHttpClient = OkHttpClient.Builder()
+fun ArticlesService(
+    apiKey: String,
+    okHttpClient: OkHttpClient = OkHttpClient(),
+    json: Json = defaultJson()
+): ArticlesService {
+    val okHttpClient = okHttpClient.newBuilder()
         .addInterceptor(AuthInterceptor(apiKey))
         .build()
 
     val retrofit = Retrofit.Builder()
         .baseUrl(DEVTO_API_URL)
         .addCallAdapterFactory(ResultAdapterFactory())
+        .addConverterFactory(json.asConverterFactory(MIMETYPE_JSON))
         .client(okHttpClient)
         .build()
 
@@ -130,18 +135,3 @@ fun ArticlesService(apiKey: String): ArticlesService {
 
 private const val DEVTO_API_URL = "https://dev.to/api"
 
-private class AuthInterceptor(private val apiKey: String) : Interceptor {
-
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request().newBuilder()
-            .addHeader(HEADER_API_KEY, apiKey)
-            .build()
-
-        return chain.proceed(request)
-    }
-
-    private companion object {
-
-        private const val HEADER_API_KEY = "api-key"
-    }
-}
