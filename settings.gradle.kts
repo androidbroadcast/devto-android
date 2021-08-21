@@ -11,3 +11,4 @@ enableFeaturePreview("VERSION_CATALOGS")
 rootProject.name = "dev.to"
 include(":app")
 include(":core")
+include(":devto-api")
