@@ -1,4 +1,4 @@
-package dev.androidbroadcast.devto.api
+package dev.androidbroadcast.devto.api.internal
 
 import okhttp3.Interceptor
 import okhttp3.Response

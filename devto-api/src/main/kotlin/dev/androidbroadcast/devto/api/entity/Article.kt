@@ -2,7 +2,6 @@ package dev.androidbroadcast.devto.api.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.util.Date
 
 @Serializable
 data class Article(
@@ -30,12 +29,12 @@ data class Article(
      * [Article.crosspostedAt] or [Article.publishedAt]
      */
     @SerialName("publishedTimestamp") val publishedTimestamp: String,
-    @SerialName("user") val creator: User,
+    @SerialName("user") val creator: SharedUser,
     @SerialName("reading_time_minutes") val readingTimeMinutes: Int,
     /**
      * The organization the resource belongs to
      */
-    val organization: Organization,
+    val organization: SharedOrganization,
     @SerialName("flare_tag") val flareTag: ArticleFlareTag
 
 )

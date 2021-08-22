@@ -5,13 +5,16 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import dev.androidbroadcast.devto.api.entity.Article
 import dev.androidbroadcast.devto.api.entity.State
 import dev.androidbroadcast.devto.api.result.Result
-import dev.androidbroadcast.devto.api.entity.Video
-import dev.androidbroadcast.devto.api.result.retrofit.ResultAdapterFactory
+import dev.androidbroadcast.devto.api.internal.MIMETYPE_JSON
+import dev.androidbroadcast.devto.api.internal.authorizedOkHttClient
+import dev.androidbroadcast.devto.api.internal.defaultJson
+import dev.androidbroadcast.devto.api.internal.retrofit
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
-import retrofit2.Retrofit
 import retrofit2.create
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -89,29 +92,32 @@ interface ArticlesService {
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
     ): Result<List<Article>>
 
-    @GET("videos")
-    suspend fun videos(
+    @GET("readinglist")
+    suspend fun readingList(
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
-    ): Result<List<Video>>
+    ): Result<List<Article>>
+
+    @PUT("/articles/{id}")
+    suspend fun updateArticle(
+        @ArticleId @Path("id") id: Int,
+        @Body article: Article,
+    ): Result<Article>
 
     companion object {
-
-        @Suppress("unused")
         const val DEFAULT_PAGE = 1
         const val DEFAULT_PAGE_SIZE = 30
     }
 }
 
 @IntRange(from = 1, to = 1000)
-private annotation class PageSize
+internal annotation class PageSize
 
 @IntRange(from = 1)
-private annotation class Page
+internal annotation class Page
 
 @IntRange(from = 1)
-private annotation class ArticleId
-
+internal annotation class ArticleId
 
 @Suppress("unused")
 fun ArticlesService(
@@ -119,19 +125,9 @@ fun ArticlesService(
     okHttpClient: OkHttpClient = OkHttpClient(),
     json: Json = defaultJson()
 ): ArticlesService {
-    val okHttpClient = okHttpClient.newBuilder()
-        .addInterceptor(AuthInterceptor(apiKey))
-        .build()
-
-    val retrofit = Retrofit.Builder()
-        .baseUrl(DEVTO_API_URL)
-        .addCallAdapterFactory(ResultAdapterFactory())
-        .addConverterFactory(json.asConverterFactory(MIMETYPE_JSON))
-        .client(okHttpClient)
-        .build()
-
+    val retrofit = retrofit(
+        okHttpClient.authorizedOkHttClient(apiKey),
+        json.asConverterFactory(MIMETYPE_JSON)
+    )
     return retrofit.create()
 }
-
-private const val DEVTO_API_URL = "https://dev.to/api"
-
