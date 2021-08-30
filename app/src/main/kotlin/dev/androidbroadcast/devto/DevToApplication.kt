@@ -4,9 +4,10 @@ import android.app.Application
 
 class DevToApplication : Application() {
 
-    val appComponent by lazy {
+    val appComponent: AppComponent by lazy {
         DaggerAppComponent.builder()
             .application(this)
+            .apiKey(BuildConfig.DEVTO_API_KEY)
             .build()
     }
 }

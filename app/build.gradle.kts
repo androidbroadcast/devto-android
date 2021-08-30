@@ -1,8 +1,19 @@
+import java.util.Properties
+import kotlin.checkNotNull
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
     id("io.gitlab.arturbosch.detekt")
+}
+
+val localProps = Properties()
+val localProperties = File(rootProject.rootDir, "local.properties")
+if (localProperties.exists() && localProperties.isFile) {
+    localProperties.inputStream().use { input ->
+        localProps.load(input)
+    }
 }
 
 android {
@@ -19,6 +30,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val devtoApiKey = checkNotNull(localProps.getProperty("devto.apikey"))
+        buildConfigField("String", "DEVTO_API_KEY", "\"$devtoApiKey\"")
     }
 
     buildTypes {
@@ -28,6 +42,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            packagingOptions {
+                resources.excludes += "DebugProbesKt.bin"
+            }
         }
     }
 
@@ -37,6 +55,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 
@@ -53,8 +72,9 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":devto-api"))
 
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.google.material)
 
