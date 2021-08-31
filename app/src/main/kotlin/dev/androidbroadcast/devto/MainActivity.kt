@@ -22,7 +22,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             DevToTheme() {
                 ProvideWindowInsets {
-                    // A surface container using the 'background' color from the theme
                     Scaffold(
                         topBar = { DevtoAppBar() },
                         backgroundColor = MaterialTheme.colors.background

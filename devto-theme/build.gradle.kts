@@ -43,4 +43,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     api(libs.bundles.androidx.compose)
     implementation(libs.google.material)
+
+    debugImplementation(libs.androidx.compose.ui.tooling)
 }

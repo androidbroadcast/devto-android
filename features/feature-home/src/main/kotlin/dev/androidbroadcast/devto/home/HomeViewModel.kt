@@ -2,8 +2,8 @@ package dev.androidbroadcast.devto.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import dev.androidbroadcast.devto.api.entity.ArticleDto
 import dev.androidbroadcast.devto.api.result.Result
+import dev.androidbroadcast.devto.home.model.Article
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Provider
@@ -12,10 +12,10 @@ class HomeViewModel @Inject internal constructor(
     private val homeArticlesUseCase: HomeArticlesUseCase
 ) : ViewModel() {
 
-    val articles = flow {
-        val result: Result<List<ArticleDto>> =
+    internal val articles = flow {
+        val result: Result<List<Article>> =
             homeArticlesUseCase.invoke()
-        if (result is Result.Success<List<ArticleDto>>) {
+        if (result is Result.Success<List<Article>>) {
             emit(result.value)
         } else if (result is Result.Failure<*>) {
             error(result.error?.message ?: "Error")

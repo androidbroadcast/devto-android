@@ -52,6 +52,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.google.accompanist.insets)
 
+    debugImplementation(libs.androidx.compose.ui.tooling)
+
     implementation(libs.dagger.runtime)
     kapt(libs.dagger.compiler)
 }
