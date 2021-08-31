@@ -9,6 +9,7 @@ import dev.androidbroadcast.devto.api.result.Result
 
 class ResultAdapterFactory : CallAdapter.Factory() {
 
+    @Suppress("ReturnCount")
     override fun get(
         returnType: Type,
         annotations: Array<Annotation>,

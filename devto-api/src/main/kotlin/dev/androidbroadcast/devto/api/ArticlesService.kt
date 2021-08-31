@@ -18,9 +18,11 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+@Suppress("TooManyFunctions")
 interface ArticlesService {
 
     @GET("articles")
+    @Suppress("LongParameterList")
     suspend fun articles(
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
@@ -31,6 +33,7 @@ interface ArticlesService {
     ): Result<List<Article>>
 
     @GET("articles")
+    @Suppress("LongParameterList")
     suspend fun articles(
         @Query("username") username: String,
         @Query("page") @Page page: Int = DEFAULT_PAGE,
@@ -41,6 +44,7 @@ interface ArticlesService {
     ): Result<List<Article>>
 
     @GET("articles")
+    @Suppress("LongParameterList")
     suspend fun articles(
         @Query("top") @IntRange(from = 1) top: Int,
         @Query("page") @Page page: Int,
