@@ -12,3 +12,5 @@ rootProject.name = "dev.to"
 include(":app")
 include(":core")
 include(":devto-api")
+include(":features:feature-home")
+include(":devto-theme")

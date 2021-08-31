@@ -6,11 +6,14 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import dev.androidbroadcast.devto.api.DevtoApi
+import dev.androidbroadcast.devto.home.di.HomeComponentDeps
 import javax.inject.Qualifier
 import javax.inject.Scope
 
 @[Component(modules = [AppModule::class]) AppScope]
-interface AppComponent {
+interface AppComponent: HomeComponentDeps {
+
+    override val devtoApi: DevtoApi
 
     @Component.Builder
     interface Builder {

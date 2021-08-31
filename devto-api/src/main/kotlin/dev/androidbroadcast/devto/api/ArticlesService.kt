@@ -2,8 +2,8 @@ package dev.androidbroadcast.devto.api
 
 import androidx.annotation.IntRange
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import dev.androidbroadcast.devto.api.entity.Article
-import dev.androidbroadcast.devto.api.entity.State
+import dev.androidbroadcast.devto.api.entity.ArticleDto
+import dev.androidbroadcast.devto.api.entity.StateDto
 import dev.androidbroadcast.devto.api.result.Result
 import dev.androidbroadcast.devto.api.internal.MIMETYPE_JSON
 import dev.androidbroadcast.devto.api.internal.authorizedOkHttClient
@@ -28,9 +28,9 @@ interface ArticlesService {
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
         @Query("tags") tags: String? = null,
         @Query("tags_exclude") excludeTags: String? = null,
-        @Query("state") state: State = State.FRESH,
+        @Query("state") state: StateDto = StateDto.FRESH,
         @Query("collection_id") collectionId: Int? = null
-    ): Result<List<Article>>
+    ): Result<List<ArticleDto>>
 
     @GET("articles")
     @Suppress("LongParameterList")
@@ -41,7 +41,7 @@ interface ArticlesService {
         @Query("tags") tags: String? = null,
         @Query("tags_exclude") excludeTags: String? = null,
         @Query("collection_id") collectionId: Int? = null
-    ): Result<List<Article>>
+    ): Result<List<ArticleDto>>
 
     @GET("articles")
     @Suppress("LongParameterList")
@@ -50,9 +50,9 @@ interface ArticlesService {
         @Query("page") @Page page: Int,
         @Query("per_page") @PageSize pageSize: Int,
         @Query("tag") tag: String? = null,
-        @Query("state") state: State = State.FRESH,
+        @Query("state") state: StateDto = StateDto.FRESH,
         @Query("collection_id") collectionId: Int? = null
-    ): Result<List<Article>>
+    ): Result<List<ArticleDto>>
 
     /**
      * Return published articles sorted by publish date
@@ -61,52 +61,52 @@ interface ArticlesService {
     suspend fun latestArticles(
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
-    ): Result<List<Article>>
+    ): Result<List<ArticleDto>>
 
     @GET("articles/{id}")
-    suspend fun article(@Path("id") @ArticleId id: Int): Result<Article>
+    suspend fun article(@Path("id") @ArticleId id: Int): Result<ArticleDto>
 
     @GET("articles/{username}/{slug}")
     suspend fun articles(
         @Path("username") username: String,
         @Path("slug") slug: String,
-    ): Result<List<Article>>
+    ): Result<List<ArticleDto>>
 
     @GET("articles/me")
     suspend fun userArticles(
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
-    ): Result<List<Article>>
+    ): Result<List<ArticleDto>>
 
     @GET("articles/me/published")
     suspend fun userPublishedArticles(
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE
-    ): Result<List<Article>>
+    ): Result<List<ArticleDto>>
 
     @GET("articles/me/unpublished")
     suspend fun userUnpublishedArticles(
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
-    ): Result<List<Article>>
+    ): Result<List<ArticleDto>>
 
     @GET("articles/me/unpublished")
     suspend fun userAllArticles(
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
-    ): Result<List<Article>>
+    ): Result<List<ArticleDto>>
 
     @GET("readinglist")
     suspend fun readingList(
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
-    ): Result<List<Article>>
+    ): Result<List<ArticleDto>>
 
     @PUT("/articles/{id}")
     suspend fun updateArticle(
         @ArticleId @Path("id") id: Int,
-        @Body article: Article,
-    ): Result<Article>
+        @Body article: ArticleDto,
+    ): Result<ArticleDto>
 
     companion object {
         const val DEFAULT_PAGE = 1

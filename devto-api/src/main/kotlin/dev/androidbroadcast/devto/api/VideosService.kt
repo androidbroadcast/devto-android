@@ -1,7 +1,7 @@
 package dev.androidbroadcast.devto.api
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import dev.androidbroadcast.devto.api.entity.Video
+import dev.androidbroadcast.devto.api.entity.VideoDto
 import dev.androidbroadcast.devto.api.internal.MIMETYPE_JSON
 import dev.androidbroadcast.devto.api.internal.authorizedOkHttClient
 import dev.androidbroadcast.devto.api.internal.defaultJson
@@ -20,7 +20,7 @@ interface VideosService {
     suspend fun videos(
         @Query("page") @Page page: Int = 1,
         @Query("per_page") @PageSize pageSize: Int = 24,
-    ): Result<List<Video>>
+    ): Result<List<VideoDto>>
 }
 
 @Suppress("FunctionName")

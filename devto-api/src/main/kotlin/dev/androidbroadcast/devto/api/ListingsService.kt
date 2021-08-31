@@ -1,7 +1,7 @@
 package dev.androidbroadcast.devto.api
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import dev.androidbroadcast.devto.api.entity.Listing
+import dev.androidbroadcast.devto.api.entity.ListingDto
 import dev.androidbroadcast.devto.api.internal.MIMETYPE_JSON
 import dev.androidbroadcast.devto.api.internal.authorizedOkHttClient
 import dev.androidbroadcast.devto.api.internal.defaultJson
@@ -19,23 +19,23 @@ import retrofit2.http.Query
 interface ListingsService {
 
     @GET("/listings/{id}")
-    suspend fun listing(@Path("id") id: Long): Result<Listing>
+    suspend fun listing(@Path("id") id: Long): Result<ListingDto>
 
     @GET("/listings")
     suspend fun listings(
         @Query("page") @Page page: Int = 1,
         @Query("per_page") @PageSize pageSize: Int = 30
-    ): Result<List<Listing>>
+    ): Result<List<ListingDto>>
 
     @POST("/listings")
-    suspend fun newListing(@Body listing: Listing): Result<Listing>
+    suspend fun newListing(@Body listing: ListingDto): Result<ListingDto>
 
     @GET("/listings/category/{category}")
     suspend fun listings(
-        @Path("category") category: Listing.Category,
+        @Path("category") category: ListingDto.Category,
         @Query("page") @Page page: Int = 1,
         @Query("per_page") @PageSize pageSize: Int = 30
-    ): Result<List<Listing>>
+    ): Result<List<ListingDto>>
 
     /**
      * Update an existing listing.
@@ -52,8 +52,8 @@ interface ListingsService {
     @PUT("/listings/{id}")
     suspend fun updateListing(
         @Path("id") id: Long,
-        @Body listing: Listing
-    ): Result<Listing>
+        @Body listing: ListingDto
+    ): Result<ListingDto>
 }
 
 @Suppress("unused")

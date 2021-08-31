@@ -28,4 +28,4 @@ internal fun OkHttpClient.authorizedOkHttClient(apiKey: String): OkHttpClient {
         .build()
 }
 
-private const val DEVTO_API_URL = "https://dev.to/api"
+private const val DEVTO_API_URL = "https://dev.to/api/"

@@ -4,6 +4,8 @@
     package="dev.androidbroadcast.devto"
     >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".DevToApplication"
         android:allowBackup="false"

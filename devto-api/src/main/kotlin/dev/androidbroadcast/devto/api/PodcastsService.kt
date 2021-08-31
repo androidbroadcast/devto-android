@@ -1,7 +1,7 @@
 package dev.androidbroadcast.devto.api
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import dev.androidbroadcast.devto.api.entity.PodcastEpisode
+import dev.androidbroadcast.devto.api.entity.PodcastEpisodeDto
 import dev.androidbroadcast.devto.api.internal.MIMETYPE_JSON
 import dev.androidbroadcast.devto.api.internal.authorizedOkHttClient
 import dev.androidbroadcast.devto.api.internal.defaultJson
@@ -20,7 +20,7 @@ interface PodcastsService {
         @Query("username") username: String,
         @Query("page") @Page page: Int = 1,
         @Query("per_page") @PageSize pageSize: Int = 30
-    ):Result<List<PodcastEpisode>>
+    ):Result<List<PodcastEpisodeDto>>
 }
 
 @Suppress("FunctionName")

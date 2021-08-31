@@ -1,7 +1,7 @@
 package dev.androidbroadcast.devto.api
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import dev.androidbroadcast.devto.api.entity.ProfileImage
+import dev.androidbroadcast.devto.api.entity.ProfileImageDto
 import dev.androidbroadcast.devto.api.internal.MIMETYPE_JSON
 import dev.androidbroadcast.devto.api.internal.authorizedOkHttClient
 import dev.androidbroadcast.devto.api.internal.defaultJson
@@ -16,7 +16,7 @@ import retrofit2.http.Path
 interface ProfileImagesService {
 
     @GET("/profile_images/{username}")
-    suspend fun profileImages(@Path("username") username: String): Result<ProfileImage>
+    suspend fun profileImages(@Path("username") username: String): Result<ProfileImageDto>
 }
 
 @Suppress("FunctionName")

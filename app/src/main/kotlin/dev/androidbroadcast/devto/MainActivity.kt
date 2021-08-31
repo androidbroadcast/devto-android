@@ -4,21 +4,31 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import dev.androidbroadcast.devto.ui.theme.DevToTheme
+import androidx.compose.ui.Modifier
+import com.google.accompanist.insets.LocalWindowInsets
+import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.insets.rememberInsetsPaddingValues
+import com.google.accompanist.insets.statusBarsPadding
+import dev.androidbroadcast.devto.home.HomeScreen
+import dev.androidbroadcast.devto.theme.DevToTheme
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DevToTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+            DevToTheme() {
+                ProvideWindowInsets {
+                    // A surface container using the 'background' color from the theme
+                    Scaffold(
+                        topBar = { DevtoAppBar() },
+                        backgroundColor = MaterialTheme.colors.background
+                    ) {
+                        HomeScreen()
+                    }
                 }
             }
         }
@@ -26,14 +36,15 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    DevToTheme {
-        Greeting("Android")
+private fun DevtoAppBar() {
+    TopAppBar(
+        contentPadding = rememberInsetsPaddingValues(
+            insets = LocalWindowInsets.current.statusBars,
+            applyStart = true,
+            applyTop = true,
+            applyEnd = true,
+        )
+    ) {
+        // content
     }
 }

@@ -17,12 +17,12 @@ if (localProperties.exists() && localProperties.isFile) {
 }
 
 android {
-    compileSdk = 30
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "dev.androidbroadcast.devto"
-        minSdk = 21
-        targetSdk = 30
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.tagetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -73,12 +73,16 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":devto-api"))
+    implementation(project(":features:feature-home"))
+    implementation(project(":devto-theme"))
 
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.google.material)
 
     implementation(libs.bundles.androidx.compose)
+    implementation(libs.google.accompanist.insets)
+
     implementation(libs.bundles.androidx.lifecycle)
 
     implementation(libs.dagger.runtime)

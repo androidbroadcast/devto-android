@@ -5,11 +5,15 @@ plugins {
 }
 
 android {
-    compileSdk = 30
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 30
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.tagetSdk.get().toInt()
+
+        vectorDrawables {
+            useSupportLibrary = true
+        }
 
         consumerProguardFiles("consumer-rules.pro")
     }

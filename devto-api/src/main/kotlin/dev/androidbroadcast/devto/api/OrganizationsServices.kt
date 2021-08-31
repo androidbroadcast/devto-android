@@ -1,10 +1,10 @@
 package dev.androidbroadcast.devto.api
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import dev.androidbroadcast.devto.api.entity.Article
-import dev.androidbroadcast.devto.api.entity.Listing
-import dev.androidbroadcast.devto.api.entity.Organization
-import dev.androidbroadcast.devto.api.entity.User
+import dev.androidbroadcast.devto.api.entity.ArticleDto
+import dev.androidbroadcast.devto.api.entity.ListingDto
+import dev.androidbroadcast.devto.api.entity.OrganizationDto
+import dev.androidbroadcast.devto.api.entity.UserDto
 import dev.androidbroadcast.devto.api.internal.MIMETYPE_JSON
 import dev.androidbroadcast.devto.api.internal.authorizedOkHttClient
 import dev.androidbroadcast.devto.api.internal.defaultJson
@@ -22,14 +22,14 @@ interface OrganizationsServices {
     @GET("/organizations/{username}")
     suspend fun organization(
         @Path("username") organizationUsername: String,
-    ): Result<Organization>
+    ): Result<OrganizationDto>
 
     @GET("/organizations/{username}/users")
     suspend fun users(
         @Path("username") organizationUsername: String,
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
-    ): Result<List<User>>
+    ): Result<List<UserDto>>
 
     @GET("/organizations/{username}/listings")
     suspend fun listings(
@@ -37,14 +37,14 @@ interface OrganizationsServices {
         @Query("category") category: String? = null,
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
-    ): Result<List<Listing>>
+    ): Result<List<ListingDto>>
 
     @GET("/organizations/{username}/articles")
     suspend fun articles(
         @Path("username") organizationUsername: String,
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
-    ): Result<List<Article>>
+    ): Result<List<ArticleDto>>
 
     companion object {
         const val DEFAULT_PAGE = 1

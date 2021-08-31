@@ -1,7 +1,7 @@
 package dev.androidbroadcast.devto.api
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import dev.androidbroadcast.devto.api.entity.Follower
+import dev.androidbroadcast.devto.api.entity.FollowerDto
 import dev.androidbroadcast.devto.api.internal.MIMETYPE_JSON
 import dev.androidbroadcast.devto.api.internal.authorizedOkHttClient
 import dev.androidbroadcast.devto.api.internal.defaultJson
@@ -27,7 +27,7 @@ interface FollowersService {
         @Query("sort") sort: String? = null,
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
-    ): Result<List<Follower>>
+    ): Result<List<FollowerDto>>
 
     companion object {
         const val DEFAULT_PAGE = 1

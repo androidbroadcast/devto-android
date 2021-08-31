@@ -1,7 +1,7 @@
 package dev.androidbroadcast.devto.api
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import dev.androidbroadcast.devto.api.entity.User
+import dev.androidbroadcast.devto.api.entity.UserDto
 import dev.androidbroadcast.devto.api.internal.MIMETYPE_JSON
 import dev.androidbroadcast.devto.api.internal.authorizedOkHttClient
 import dev.androidbroadcast.devto.api.internal.defaultJson
@@ -17,13 +17,13 @@ import retrofit2.http.Query
 interface UserService {
 
     @GET("/users/{id}")
-    suspend fun userById(@Path("id") id: Int): Result<User>
+    suspend fun userById(@Path("id") id: Int): Result<UserDto>
 
     @GET("/users/by_username")
-    suspend fun userBeUrl(@Query("url") url: String): Result<User>
+    suspend fun userBeUrl(@Query("url") url: String): Result<UserDto>
 
     @GET("/users/me")
-    suspend fun currentUser(): Result<User>
+    suspend fun currentUser(): Result<UserDto>
 }
 
 @Suppress("FunctionName")

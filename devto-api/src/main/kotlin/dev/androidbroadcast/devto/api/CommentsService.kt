@@ -1,7 +1,7 @@
 package dev.androidbroadcast.devto.api
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import dev.androidbroadcast.devto.api.entity.Comment
+import dev.androidbroadcast.devto.api.entity.CommentDto
 import dev.androidbroadcast.devto.api.internal.MIMETYPE_JSON
 import dev.androidbroadcast.devto.api.internal.authorizedOkHttClient
 import dev.androidbroadcast.devto.api.internal.defaultJson
@@ -17,13 +17,13 @@ import retrofit2.http.Query
 interface CommentsService {
 
     @GET("/comments")
-    fun articleComments(@Query("a_id") id: String): Result<List<Comment>>
+    fun articleComments(@Query("a_id") id: String): Result<List<CommentDto>>
 
     @GET("/comments")
-    fun podcastComments(@Query("p_id") id: String): Result<List<Comment>>
+    fun podcastComments(@Query("p_id") id: String): Result<List<CommentDto>>
 
     @GET("/comments/{id}")
-    fun comments(@Path("id") id: String): Result<Comment>
+    fun comments(@Path("id") id: String): Result<CommentDto>
 }
 
 @Suppress("unused")
