@@ -1,0 +1,8 @@
+name: Build
+
+on: push
+jobs:
+  analyze-code:
+    runs-on: ubuntu-latest
+    steps:
+      - run: ./gradlew detekt
