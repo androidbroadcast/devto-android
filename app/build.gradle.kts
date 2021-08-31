@@ -31,7 +31,7 @@ android {
             useSupportLibrary = true
         }
 
-        val devtoApiKey = checkNotNull(localProps.getProperty("devto.apikey"))
+        val devtoApiKey = checkNotNull(localProps.getProperty("devto.apikey") ?: System.getenv("DEVTO_API_KEY"))
         buildConfigField("String", "DEVTO_API_KEY", "\"$devtoApiKey\"")
     }
 
