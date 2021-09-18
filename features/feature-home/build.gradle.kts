@@ -51,6 +51,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.coil.compose)
     implementation(libs.google.accompanist.insets)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.paging.common)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 

@@ -8,16 +8,15 @@ import java.text.SimpleDateFormat
 
 @SuppressLint("SimpleDateFormat")
 internal fun ArticleDto.toArticle(): Article {
-    val df1: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
     return Article(
         id = id,
         title = title,
         imageUrl = coverImageUrl?.url,
-        readablePublishDate = readablePublishDate,
+        readablePublishDate = readablePublish,
         tags = tagList,
         commentsCount = commentsCount,
         positiveReactionsCount = positiveReactionsCount,
-        publishedAt = requireNotNull(df1.parse(publishedAt)),
+        publishedAt = publishedAt,
         creator = creator.toCreator(),
         readingTimeMinutes = readingTimeMinutes
     )

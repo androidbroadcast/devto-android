@@ -1,7 +1,10 @@
 package dev.androidbroadcast.devto.api.entity
 
+import dev.androidbroadcast.devto.api.internal.IsoDateSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
+import java.util.Date
 
 @Serializable
 data class OrganizationDto(
@@ -16,9 +19,9 @@ data class OrganizationDto(
     @SerialName("tech_stack") val techStack: String? = null,
     @SerialName("tag_line") val tagLine: String? = null,
     @SerialName("story") val story: String? = null,
-    @SerialName("joined_at") val joinedAt: String? = null,
+    @SerialName("joined_at") @Serializable(IsoDateSerializer::class) val joinedAt: Date? = null,
     /**
      * Profile image (640x640)
      */
-    @SerialName("profile_image") val profileImage: UrlDto? = null,
+    @SerialName("profile_image") val profileImageUrl: UrlDto? = null,
 )

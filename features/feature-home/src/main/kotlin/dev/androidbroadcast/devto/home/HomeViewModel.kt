@@ -2,34 +2,38 @@ package dev.androidbroadcast.devto.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import dev.androidbroadcast.devto.api.result.Result
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import dagger.Lazy
 import dev.androidbroadcast.devto.home.model.Article
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-import javax.inject.Provider
 
 class HomeViewModel @Inject internal constructor(
-    private val homeArticlesUseCase: HomeArticlesUseCase
+    private val latestArticlesPagingSource: Lazy<LatestArticlesPagingSource>
 ) : ViewModel() {
 
-    internal val articles = flow {
-        val result: Result<List<Article>> =
-            homeArticlesUseCase.invoke()
-        if (result is Result.Success<List<Article>>) {
-            emit(result.value)
-        } else if (result is Result.Failure<*>) {
-            error(result.error?.message ?: "Error")
-        }
-    }
+    internal val articles: Flow<PagingData<Article>> = Pager(
+        // Configure how data is loaded by passing additional properties to
+        // PagingConfig, such as prefetchDistance.
+        PagingConfig(pageSize = 20)
+    ) {
+        latestArticlesPagingSource.get()
+    }.flow
+        .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
 
     internal class Factory @Inject constructor(
-        private val homeArticlesUseCase: Provider<HomeArticlesUseCase>
+        private val latestArticlesPagingSource: Lazy<LatestArticlesPagingSource>
     ) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             require(modelClass == HomeViewModel::class.java)
-            return HomeViewModel(homeArticlesUseCase.get()) as T
+            return HomeViewModel(latestArticlesPagingSource) as T
         }
     }
 }

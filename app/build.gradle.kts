@@ -79,6 +79,7 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.google.material)
+    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.bundles.androidx.compose)
     implementation(libs.google.accompanist.insets)
