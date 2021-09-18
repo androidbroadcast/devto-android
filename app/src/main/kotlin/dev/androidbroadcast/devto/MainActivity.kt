@@ -26,9 +26,11 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
+import dagger.hilt.android.AndroidEntryPoint
 import dev.androidbroadcast.devto.home.HomeScreen
 import dev.androidbroadcast.devto.theme.DevToTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

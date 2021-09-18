@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package dev.androidbroadcast.devto.home.model
 
 import java.util.Date

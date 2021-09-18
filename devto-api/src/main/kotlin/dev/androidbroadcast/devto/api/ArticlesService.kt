@@ -125,7 +125,7 @@ internal annotation class ArticleId
 
 @Suppress("unused")
 fun ArticlesService(
-    apiKey: String,
+    apiKey: DevtoApiKeyProvider,
     okHttpClient: OkHttpClient = OkHttpClient(),
     json: Json = defaultJson()
 ): ArticlesService {

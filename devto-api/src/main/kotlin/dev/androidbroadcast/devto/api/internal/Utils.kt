@@ -1,5 +1,6 @@
 package dev.androidbroadcast.devto.api.internal
 
+import dev.androidbroadcast.devto.api.DevtoApiKeyProvider
 import dev.androidbroadcast.devto.api.result.retrofit.ResultAdapterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
@@ -22,9 +23,9 @@ internal fun retrofit(
     }.build()
 }
 
-internal fun OkHttpClient.authorizedOkHttClient(apiKey: String): OkHttpClient {
+internal fun OkHttpClient.authorizedOkHttClient(apiKeyProvider: DevtoApiKeyProvider): OkHttpClient {
     return OkHttpClient.Builder()
-        .addInterceptor(AuthInterceptor(apiKey))
+        .addInterceptor(AuthInterceptor(apiKeyProvider))
         .build()
 }
 

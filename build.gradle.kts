@@ -9,6 +9,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:7.0.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlin.get()}")
         classpath(kotlin("serialization", version = libs.versions.kotlin.get()))
+        classpath(libs.dagger.hilt.agp)
     }
 }
 

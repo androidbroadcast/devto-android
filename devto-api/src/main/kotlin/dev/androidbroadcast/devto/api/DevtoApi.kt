@@ -3,7 +3,7 @@ package dev.androidbroadcast.devto.api
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 
-class DevtoApi(private val apiKey: String) {
+class DevtoApi(private val apiKey: DevtoApiKeyProvider) {
 
     private val okHttpClient = OkHttpClient()
     private val json = Json {

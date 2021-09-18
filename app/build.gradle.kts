@@ -6,6 +6,16 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("io.gitlab.arturbosch.detekt")
+    id("dagger.hilt.android.plugin")
+}
+
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
+}
+
+hilt {
+    enableExperimentalClasspathAggregation = true
 }
 
 val localProps = Properties()
@@ -86,9 +96,6 @@ dependencies {
 
     implementation(libs.bundles.androidx.lifecycle)
 
-    implementation(libs.dagger.runtime)
-    kapt(libs.dagger.compiler)
-
     testImplementation(libs.junit4)
 
     androidTestImplementation(libs.androidx.test.ext)
@@ -96,4 +103,8 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
+
+    implementation(libs.dagger.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.dagger.hilt.compiler)
 }

@@ -3,6 +3,12 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("io.gitlab.arturbosch.detekt")
+    id("dagger.hilt.android.plugin")
+}
+
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
 }
 
 android {
@@ -56,6 +62,7 @@ dependencies {
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 
-    implementation(libs.dagger.runtime)
-    kapt(libs.dagger.compiler)
+    implementation(libs.dagger.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.dagger.hilt.compiler)
 }

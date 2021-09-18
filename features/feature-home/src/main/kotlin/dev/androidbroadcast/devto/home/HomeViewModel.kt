@@ -7,12 +7,14 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import dagger.Lazy
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.androidbroadcast.devto.home.model.Article
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+@HiltViewModel
 class HomeViewModel @Inject internal constructor(
     private val latestArticlesPagingSource: Lazy<LatestArticlesPagingSource>
 ) : ViewModel() {
@@ -23,17 +25,5 @@ class HomeViewModel @Inject internal constructor(
         PagingConfig(pageSize = 20)
     ) {
         latestArticlesPagingSource.get()
-    }.flow
-        .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
-
-    internal class Factory @Inject constructor(
-        private val latestArticlesPagingSource: Lazy<LatestArticlesPagingSource>
-    ) : ViewModelProvider.Factory {
-
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            require(modelClass == HomeViewModel::class.java)
-            return HomeViewModel(latestArticlesPagingSource) as T
-        }
-    }
+    }.flow.stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
 }

@@ -1,47 +1,24 @@
 package dev.androidbroadcast.devto
 
-import android.app.Application
-import dagger.BindsInstance
-import dagger.Component
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import dev.androidbroadcast.devto.api.DevtoApi
-import dev.androidbroadcast.devto.home.di.HomeComponentDeps
-import javax.inject.Qualifier
-import javax.inject.Scope
-
-@[Component(modules = [AppModule::class]) AppScope]
-interface AppComponent: HomeComponentDeps {
-
-    override val devtoApi: DevtoApi
-
-    @Component.Builder
-    interface Builder {
-
-        @BindsInstance
-        fun application(application: Application): Builder
-
-        @BindsInstance
-        fun apiKey(@ApiKey apiKey: String): Builder
-
-        fun build(): AppComponent
-    }
-}
-
-@Qualifier
-@Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.FUNCTION, AnnotationTarget.VALUE_PARAMETER)
-annotation class ApiKey
-
-@Scope
-@Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
-annotation class AppScope
+import dev.androidbroadcast.devto.api.DevtoApiKeyProvider
+import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 class AppModule {
 
-    @AppScope
+    @Singleton
     @Provides
-    fun providerDevApi(@ApiKey apiKey: String) = DevtoApi(apiKey)
+    fun providerDevApi(apiKeyProvider: DevtoApiKeyProvider) = DevtoApi(apiKeyProvider)
+
+    @Provides
+    fun providerDevApiKeyProvider() = object : DevtoApiKeyProvider {
+
+        override val apiKey: String = BuildConfig.DEVTO_API_KEY
+    }
 }

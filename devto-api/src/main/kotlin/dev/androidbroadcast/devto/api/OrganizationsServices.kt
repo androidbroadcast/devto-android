@@ -54,12 +54,12 @@ interface OrganizationsServices {
 
 @Suppress("FunctionName")
 fun OrganizationsServices(
-    apiKey: String,
+    apiKeyProvider: DevtoApiKeyProvider,
     okHttpClient: OkHttpClient = OkHttpClient(),
     json: Json = defaultJson()
 ): OrganizationsServices {
     val retrofit = retrofit(
-        okHttpClient.authorizedOkHttClient(apiKey),
+        okHttpClient.authorizedOkHttClient(apiKeyProvider),
         json.asConverterFactory(MIMETYPE_JSON)
     )
     return retrofit.create()
