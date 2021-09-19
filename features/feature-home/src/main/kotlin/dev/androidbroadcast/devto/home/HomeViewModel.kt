@@ -6,11 +6,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.Lazy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.androidbroadcast.devto.home.model.Article
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.cache
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -21,6 +23,7 @@ class HomeViewModel @Inject internal constructor(
 
     internal val articles: Flow<PagingData<Article>> =
         Pager(PagingConfig(pageSize = 20)) { latestArticlesPagingSource.get() }
-        .flow
-        .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
+            .flow
+            .cachedIn(viewModelScope)
+            .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
 }

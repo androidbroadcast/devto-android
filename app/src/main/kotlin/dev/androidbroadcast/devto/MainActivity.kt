@@ -12,6 +12,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -28,6 +29,7 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
 import dev.androidbroadcast.devto.home.HomeScreen
 import dev.androidbroadcast.devto.theme.DevToTheme
+import dev.androidbroadcast.devto.user.CurrentUser
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -43,7 +45,7 @@ class MainActivity : ComponentActivity() {
                         bottomBar = {
                             DevtoBottomNavigation(
                                 navController = navController,
-                                items = listOf<Screen>(Screen.Home)
+                                items = listOf(Screen.Home, Screen.MyProfile)
                             )
                         }
                     ) {
@@ -52,6 +54,7 @@ class MainActivity : ComponentActivity() {
                             startDestination = Screen.Home.route
                         ) {
                             composable(Screen.Home.route) { HomeScreen() }
+                            composable(Screen.MyProfile.route) { CurrentUser() }
                         }
                     }
                 }
@@ -93,8 +96,11 @@ sealed class Screen(
 ) {
     object Home : Screen(ROUTE_HOME, R.string.nav_home, Icons.Filled.Home)
 
+    object MyProfile : Screen(ROUTE_MY_PROFILE, R.string.nav_my_profile, Icons.Filled.Person)
+
     companion object {
 
         const val ROUTE_HOME = "home"
+        const val ROUTE_MY_PROFILE = "my_profile"
     }
 }

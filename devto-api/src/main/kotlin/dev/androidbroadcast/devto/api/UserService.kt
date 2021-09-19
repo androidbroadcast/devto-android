@@ -20,14 +20,14 @@ interface UserService {
     suspend fun userById(@Path("id") id: Int): Result<UserDto>
 
     @GET("users/by_username")
-    suspend fun userBeUrl(@Query("url") url: String): Result<UserDto>
+    suspend fun userByUsername(@Query("url") username: String): Result<UserDto>
 
     @GET("users/me")
     suspend fun currentUser(): Result<UserDto>
 }
 
 @Suppress("FunctionName")
-fun UserService(
+fun UsersService(
     apiKeyProvider: DevtoApiKeyProvider,
     okHttpClient: OkHttpClient = OkHttpClient(),
     json: Json = defaultJson()

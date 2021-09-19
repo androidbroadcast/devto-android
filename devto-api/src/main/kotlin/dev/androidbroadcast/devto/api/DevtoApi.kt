@@ -18,6 +18,6 @@ class DevtoApi(private val apiKey: DevtoApiKeyProvider) {
     val podcasts by lazy { PodcastsService(apiKey, okHttpClient, json) }
     val profileImages by lazy { ProfileImagesService(apiKey, okHttpClient, json) }
     val tags by lazy { TagsService(apiKey, okHttpClient, json) }
-    val users by lazy { UserService(apiKey, okHttpClient, json) }
+    val users by lazy { UsersService(apiKey, okHttpClient, json) }
     val videos by lazy { VideosService(apiKey, okHttpClient, json) }
 }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">dev.to</string>
     <string name="nav_home">Home</string>
+    <string name="nav_my_profile">Profile</string>
 </resources>

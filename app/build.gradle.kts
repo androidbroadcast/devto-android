@@ -84,6 +84,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":devto-api"))
     implementation(project(":features:feature-home"))
+    implementation(project(":features:feature-user"))
     implementation(project(":devto-theme"))
 
     implementation(libs.androidx.core)
