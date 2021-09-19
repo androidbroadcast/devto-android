@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.coil.compose)
     implementation(libs.google.accompanist.insets)
+    implementation(libs.google.accompanist.flowlayout)
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.paging.common)
 

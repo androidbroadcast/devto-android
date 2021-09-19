@@ -19,11 +19,8 @@ class HomeViewModel @Inject internal constructor(
     private val latestArticlesPagingSource: Lazy<LatestArticlesPagingSource>
 ) : ViewModel() {
 
-    internal val articles: Flow<PagingData<Article>> = Pager(
-        // Configure how data is loaded by passing additional properties to
-        // PagingConfig, such as prefetchDistance.
-        PagingConfig(pageSize = 20)
-    ) {
-        latestArticlesPagingSource.get()
-    }.flow.stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
+    internal val articles: Flow<PagingData<Article>> =
+        Pager(PagingConfig(pageSize = 20)) { latestArticlesPagingSource.get() }
+        .flow
+        .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
 }

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
@@ -36,10 +37,12 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
+import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import dev.androidbroadcast.devto.home.model.Article
 import dev.androidbroadcast.devto.theme.Dimens
+import dev.androidbroadcast.devto.theme.Typography
 import dev.androidbroadcast.devto.theme.contentPaddings
 
 @Composable
@@ -55,12 +58,15 @@ fun HomeScreen(
             modifier,
             contentPadding = rememberInsetsPaddingValues(
                 insets = LocalWindowInsets.current.systemBars,
-                applyTop = false,
+                applyTop = true,
                 applyBottom = true,
             )
         ) {
             itemsIndexed(articlesPagingItems) { _, article ->
-                ArticleItem(requireNotNull(article), modifier = Modifier.padding(bottom = 4.dp))
+                ArticleItem(
+                    requireNotNull(article),
+                    modifier = Modifier.padding(bottom = Dimens.paddings.small),
+                )
             }
 
             if (articlesPagingItems.loadState.append == LoadState.Loading) {
@@ -119,9 +125,9 @@ internal fun ArticleItem(article: Article, modifier: Modifier = Modifier) {
                     )
                 }
                 Row {
-                    Counter(article.positiveReactionsCount, Icons.Outlined.Favorite, onClick = {})
+                    Counter(article.positiveReactionsCount, Icons.Outlined.Favorite)
                     Spacer(modifier = Modifier.size(Dimens.paddings.default))
-                    Counter(article.commentsCount, Icons.Filled.Face, onClick = {})
+                    Counter(article.commentsCount, Icons.Filled.Face)
                 }
             }
         }
@@ -129,17 +135,8 @@ internal fun ArticleItem(article: Article, modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun Counter(
-    count: Int,
-    image: ImageVector,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        Modifier
-            .clickable { onClick() }
-            .then(modifier)
-    ) {
+private fun Counter(count: Int, image: ImageVector, modifier: Modifier = Modifier) {
+    Row(modifier) {
         Icon(image, contentDescription = null)
         Spacer(modifier = Modifier.size(Dimens.paddings.small))
         Text(text = count.toString())
@@ -167,11 +164,12 @@ private fun Tags(
     tags: List<String> = listOf("android", "compose", "jetpack", "broadcast")
 ) {
     if (tags.isNotEmpty()) Spacer(modifier = Modifier.size(Dimens.paddings.small))
-    Row(modifier) {
-        tags.forEach { tag ->
-            Tag(tag)
-            Spacer(modifier = Modifier.size(Dimens.paddings.small))
-        }
+    FlowRow(
+        modifier,
+        crossAxisSpacing = Dimens.paddings.small,
+        mainAxisSpacing = Dimens.paddings.small
+    ) {
+        tags.forEach { tag -> Tag(tag) }
     }
 }
 
@@ -183,9 +181,9 @@ private fun Tag(
 ) {
     Text(
         text = "#${tag}",
+        style = Typography.caption,
         modifier = modifier
             .clickable { onClick(tag) }
-            .background(MaterialTheme.colors.onSurface.copy(alpha = 0.1F))
             .padding(all = Dimens.paddings.small)
     )
 }
@@ -194,7 +192,7 @@ private fun Tag(
 private fun ArticleCreator(creator: Article.User, modifier: Modifier = Modifier) {
     Row(modifier, verticalAlignment = Alignment.CenterVertically) {
         creator.profileImageUrl?.let { ArticleCreatorPhoto(it) }
-        Spacer(modifier = Modifier.size(4.dp))
+        Spacer(modifier = Modifier.size(Dimens.paddings.small))
         Column(verticalArrangement = Arrangement.Center) {
             Text(text = creator.name, style = MaterialTheme.typography.body2, maxLines = 1)
             Text(

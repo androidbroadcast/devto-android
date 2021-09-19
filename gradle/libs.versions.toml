@@ -32,7 +32,7 @@ kotlinx-coroutines = "1.5.1"
 
 coil = "1.3.2"
 
-google-accompanist = "0.17.0"
+google-accompanist = "0.18.0"
 
 [libraries]
 dagger-runtime = { module = "com.google.dagger:dagger", version.ref = "dagger" }
@@ -89,6 +89,7 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
 google-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "google-accompanist" }
 google-accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "google-accompanist" }
+google-accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "google-accompanist" }
 
 [bundles]
 androidx-compose = [
