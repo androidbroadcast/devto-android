@@ -15,7 +15,7 @@ import retrofit2.http.Query
 
 interface PodcastsService {
 
-    @GET("/podcast_episodes")
+    @GET("podcast_episodes")
     suspend fun podcastsEpisodes(
         @Query("username") username: String,
         @Query("page") @Page page: Int = 1,

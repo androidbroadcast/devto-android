@@ -22,7 +22,7 @@ interface FollowersService {
      * Retrieve a list of the followers they have.
      * "Followers" are users that are following other users on the website.
      */
-    @GET("/followers/users")
+    @GET("followers/users")
     suspend fun followers(
         @Query("sort") sort: String? = null,
         @Query("page") @Page page: Int = DEFAULT_PAGE,

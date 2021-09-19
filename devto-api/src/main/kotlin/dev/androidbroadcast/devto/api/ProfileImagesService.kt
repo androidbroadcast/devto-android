@@ -15,7 +15,7 @@ import retrofit2.http.Path
 
 interface ProfileImagesService {
 
-    @GET("/profile_images/{username}")
+    @GET("profile_images/{username}")
     suspend fun profileImages(@Path("username") username: String): Result<ProfileImageDto>
 }
 

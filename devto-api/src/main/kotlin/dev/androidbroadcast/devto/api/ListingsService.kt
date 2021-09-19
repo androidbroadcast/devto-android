@@ -18,19 +18,19 @@ import retrofit2.http.Query
 
 interface ListingsService {
 
-    @GET("/listings/{id}")
+    @GET("listings/{id}")
     suspend fun listing(@Path("id") id: Long): Result<ListingDto>
 
-    @GET("/listings")
+    @GET("listings")
     suspend fun listings(
         @Query("page") @Page page: Int = 1,
         @Query("per_page") @PageSize pageSize: Int = 30
     ): Result<List<ListingDto>>
 
-    @POST("/listings")
+    @POST("listings")
     suspend fun newListing(@Body listing: ListingDto): Result<ListingDto>
 
-    @GET("/listings/category/{category}")
+    @GET("listings/category/{category}")
     suspend fun listings(
         @Path("category") category: ListingDto.Category,
         @Query("page") @Page page: Int = 1,
@@ -49,7 +49,7 @@ interface ListingsService {
      *
      * @param listing Listing params for the update.
      */
-    @PUT("/listings/{id}")
+    @PUT("listings/{id}")
     suspend fun updateListing(
         @Path("id") id: Long,
         @Body listing: ListingDto

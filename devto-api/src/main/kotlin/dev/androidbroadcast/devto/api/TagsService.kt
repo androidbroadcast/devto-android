@@ -18,14 +18,14 @@ interface TagsService {
     /**
      * Retrieve a list of the tags they follow.
      */
-    @GET("/follows/tags")
+    @GET("follows/tags")
     suspend fun followed(): Result<List<TagDto>>
 
     /**
      * Retrieve a list of tags that can be used to tag articles.
      * It will return tags ordered by popularity.
      */
-    @GET("/tags")
+    @GET("tags")
     suspend fun tags(
         @Query("page") @Page page: Int = 1,
         @Query("per_page") @PageSize pageSize: Int = 10

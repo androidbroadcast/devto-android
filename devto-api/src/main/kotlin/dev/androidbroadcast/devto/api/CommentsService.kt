@@ -16,13 +16,13 @@ import retrofit2.http.Query
 
 interface CommentsService {
 
-    @GET("/comments")
+    @GET("comments")
     fun articleComments(@Query("a_id") id: String): Result<List<CommentDto>>
 
-    @GET("/comments")
+    @GET("comments")
     fun podcastComments(@Query("p_id") id: String): Result<List<CommentDto>>
 
-    @GET("/comments/{id}")
+    @GET("comments/{id}")
     fun comments(@Path("id") id: String): Result<CommentDto>
 }
 

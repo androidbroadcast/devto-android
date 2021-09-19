@@ -102,7 +102,7 @@ interface ArticlesService {
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
     ): Result<List<ArticleDto>>
 
-    @PUT("/articles/{id}")
+    @PUT("articles/{id}")
     suspend fun updateArticle(
         @ArticleId @Path("id") id: Int,
         @Body article: ArticleDto,

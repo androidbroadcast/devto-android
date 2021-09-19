@@ -19,19 +19,19 @@ import retrofit2.http.Query
 
 interface OrganizationsServices {
 
-    @GET("/organizations/{username}")
+    @GET("organizations/{username}")
     suspend fun organization(
         @Path("username") organizationUsername: String,
     ): Result<OrganizationDto>
 
-    @GET("/organizations/{username}/users")
+    @GET("organizations/{username}/users")
     suspend fun users(
         @Path("username") organizationUsername: String,
         @Query("page") @Page page: Int = DEFAULT_PAGE,
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
     ): Result<List<UserDto>>
 
-    @GET("/organizations/{username}/listings")
+    @GET("organizations/{username}/listings")
     suspend fun listings(
         @Path("username") organizationUsername: String,
         @Query("category") category: String? = null,
@@ -39,7 +39,7 @@ interface OrganizationsServices {
         @Query("per_page") @PageSize pageSize: Int = DEFAULT_PAGE_SIZE,
     ): Result<List<ListingDto>>
 
-    @GET("/organizations/{username}/articles")
+    @GET("organizations/{username}/articles")
     suspend fun articles(
         @Path("username") organizationUsername: String,
         @Query("page") @Page page: Int = DEFAULT_PAGE,

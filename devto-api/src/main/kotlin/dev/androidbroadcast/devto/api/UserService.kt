@@ -16,13 +16,13 @@ import retrofit2.http.Query
 
 interface UserService {
 
-    @GET("/users/{id}")
+    @GET("users/{id}")
     suspend fun userById(@Path("id") id: Int): Result<UserDto>
 
-    @GET("/users/by_username")
+    @GET("users/by_username")
     suspend fun userBeUrl(@Query("url") url: String): Result<UserDto>
 
-    @GET("/users/me")
+    @GET("users/me")
     suspend fun currentUser(): Result<UserDto>
 }
 
