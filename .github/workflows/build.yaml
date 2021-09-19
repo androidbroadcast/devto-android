@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: gradle/wrapper-validation-action@v1
   analyze-code:
+    needs: validation
     name: "Analyze code"
     runs-on: ubuntu-latest
     env:
