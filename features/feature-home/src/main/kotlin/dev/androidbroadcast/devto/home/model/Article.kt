@@ -4,6 +4,7 @@ package dev.androidbroadcast.devto.home.model
 
 import java.util.Date
 
+@Suppress("LongParameterList")
 internal class Article(
     val id: Int,
     val title: String,

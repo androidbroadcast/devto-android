@@ -37,7 +37,7 @@ internal class LatestArticlesPagingSource(
                 LoadResult.Page(data = data, prevKey = prevKey, nextKey = nextKey)
             }
             is Result.Failure<*> -> {
-                LoadResult.Error(response.error ?: Exception())
+                LoadResult.Error(response.error ?: Exception("Error loading data"))
             }
         }
     }
