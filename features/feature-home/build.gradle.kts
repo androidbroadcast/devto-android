@@ -11,6 +11,11 @@ kapt {
     useBuildCache = true
 }
 
+dependencies {
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.compiler)
+}
+
 android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
@@ -63,7 +68,5 @@ dependencies {
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 
-    implementation(libs.dagger.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
-    kapt(libs.dagger.hilt.compiler)
 }

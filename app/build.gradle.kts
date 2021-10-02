@@ -14,6 +14,11 @@ kapt {
     useBuildCache = true
 }
 
+dependencies {
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.compiler)
+}
+
 hilt {
     enableExperimentalClasspathAggregation = true
 }
@@ -104,7 +109,5 @@ dependencies {
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 
-    implementation(libs.dagger.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
-    kapt(libs.dagger.hilt.compiler)
 }
