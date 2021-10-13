@@ -6,6 +6,8 @@ import dev.androidbroadcast.devto.api.ArticlesService
 import dev.androidbroadcast.devto.api.DevtoApi
 import dev.androidbroadcast.devto.api.entity.ArticleDto
 import dev.androidbroadcast.devto.api.result.Result
+import dev.androidbroadcast.devto.api.result.isFailure
+import dev.androidbroadcast.devto.api.result.isSuccess
 import dev.androidbroadcast.devto.home.model.Article
 import dev.androidbroadcast.devto.home.model.toArticle
 import kotlinx.coroutines.delay
@@ -29,16 +31,17 @@ internal class LatestArticlesPagingSource(
         val page = params.key ?: 1
         val response =
             articlesService.latestArticles(page = page, pageSize = params.loadSize)
-        return when (response) {
-            is Result.Success<*> -> {
-                val data = (response.value as List<ArticleDto>).map { it.toArticle() }
+        return when {
+            response.isSuccess() -> {
+                val data = response.value.map { it.toArticle() }
                 val nextKey = if (data.isEmpty()) null else page + 1
                 val prevKey = if (page > 1) page - 1 else null
                 LoadResult.Page(data = data, prevKey = prevKey, nextKey = nextKey)
             }
-            is Result.Failure<*> -> {
+            response.isFailure() -> {
                 LoadResult.Error(response.error ?: Exception("Error loading data"))
             }
+            else -> error("Unhandled state")
         }
     }
 }

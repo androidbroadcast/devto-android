@@ -8,12 +8,10 @@ import dev.androidbroadcast.devto.api.DevtoApi
 import dev.androidbroadcast.devto.api.DevtoApiKeyProvider
 import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
+@[Module InstallIn(SingletonComponent::class)]
 class AppModule {
 
-    @Singleton
-    @Provides
+    @[Provides Singleton]
     fun providerDevApi(apiKeyProvider: DevtoApiKeyProvider) = DevtoApi(apiKeyProvider)
 
     @Provides

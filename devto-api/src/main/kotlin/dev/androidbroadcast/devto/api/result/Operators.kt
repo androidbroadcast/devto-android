@@ -5,7 +5,11 @@ package dev.androidbroadcast.devto.api.result
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
+@OptIn(ExperimentalContracts::class)
 fun <T> Result<T>.isSuccess(): Boolean {
+    contract {
+        returns(true) implies (this@isSuccess is Result.Success<T>)
+    }
     return this is Result.Success
 }
 
