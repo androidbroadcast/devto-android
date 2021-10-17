@@ -24,7 +24,7 @@ internal fun retrofit(
 }
 
 internal fun OkHttpClient.authorizedOkHttClient(apiKeyProvider: DevtoApiKeyProvider): OkHttpClient {
-    return OkHttpClient.Builder()
+    return this.newBuilder()
         .addInterceptor(AuthInterceptor(apiKeyProvider))
         .build()
 }

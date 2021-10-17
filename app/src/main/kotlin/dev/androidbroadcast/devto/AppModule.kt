@@ -6,13 +6,18 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.androidbroadcast.devto.api.DevtoApi
 import dev.androidbroadcast.devto.api.DevtoApiKeyProvider
-import javax.inject.Singleton
+import okhttp3.OkHttpClient
 
 @[Module InstallIn(SingletonComponent::class)]
 class AppModule {
 
-    @[Provides Singleton]
-    fun providerDevApi(apiKeyProvider: DevtoApiKeyProvider) = DevtoApi(apiKeyProvider)
+    @Provides
+    fun providerDevApi(
+        apiKeyProvider: DevtoApiKeyProvider,
+        okHttpClient: OkHttpClient
+    ): DevtoApi {
+        return DevtoApi(apiKeyProvider, okHttpClient)
+    }
 
     @Provides
     fun providerDevApiKeyProvider() = object : DevtoApiKeyProvider {

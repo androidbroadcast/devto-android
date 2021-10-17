@@ -110,4 +110,9 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     implementation(libs.androidx.hilt.navigation.compose)
+
+    debugImplementation(libs.bundles.flipper.debug)
+    releaseImplementation(libs.bundles.flipper.release)
+    implementation(libs.okhttp3)
+    implementation(libs.coil.core)
 }

@@ -25,7 +25,7 @@ google-material = "1.4.0"
 junit4 = "4.13.2"
 retrofit2-runtime = "2.9.0"
 retrofit2-koltinx-serialization = "0.8.0"
-okhttp3 = "4.9.0"
+okhttp3 = "4.9.2"
 
 kotlinx-serialization = "1.3.0"
 kotlinx-coroutines = "1.5.1"
@@ -33,6 +33,9 @@ kotlinx-coroutines = "1.5.1"
 coil = "1.3.2"
 
 google-accompanist = "0.19.0"
+
+flipper = "0.115.0"
+facebook-soloader = "0.10.1"
 
 [libraries]
 dagger-runtime = { module = "com.google.dagger:dagger", version.ref = "dagger" }
@@ -91,6 +94,12 @@ google-accompanist-systemuicontroller = { module = "com.google.accompanist:accom
 google-accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "google-accompanist" }
 google-accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "google-accompanist" }
 
+flipper = { module = "com.facebook.flipper:flipper", version.ref = "flipper"}
+flipper-noop = { module = "com.facebook.flipper:flipper-noop", version.ref = "flipper"}
+flipper-network = { module = "com.facebook.flipper:flipper-network-plugin", version.ref = "flipper" }
+facebook-soloader = {module = "com.facebook.soloader:soloader", version.ref =  "facebook-soloader"}
+
+
 [bundles]
 androidx-compose = [
     "androidx-compose-ui",
@@ -110,3 +119,6 @@ androidx-paging = ["androidx-paging-runtime", "androidx-paging-common", "android
 retrofit2 = ["retrofit2-runtime", "okhttp3", "retrofit2-koltinx-serialization", "kotlinx-serialization"]
 
 kotlinx-coroutines = ["kotlinx-coroutines-android", "kotlinx-coroutines-core"]
+
+flipper-debug = ["flipper", "facebook-soloader", "flipper-network"]
+flipper-release = ["flipper-noop"]
